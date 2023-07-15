@@ -1,23 +1,22 @@
-import logo from './logo.svg';
+
+import React from "react"
 import './App.css';
+import { useGetMovieByNameQuery } from './Redux/movieApi';
+// import { useGetPokemonByNameQuery } from './Redux/api';
 
 function App() {
+  const {data, error, isLoading}= useGetMovieByNameQuery()
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {error ? (
+        <>Oh no, there was an error</>
+      ) : isLoading ? (
+        <>Loading...</>
+      ) : data ? (
+        <>
+          <h1>{data.Title}</h1>
+        </>
+      ) : null}
     </div>
   );
 }
